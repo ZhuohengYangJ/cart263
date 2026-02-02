@@ -96,40 +96,49 @@ function setup(){
 /* 1: Select the first paragraph and replace the text within the paragraph... */
     /***CODE */
     let p1 = document.querySelector('p');
-    p1.textContent = 'Voici une liste de fleurs raffinées.';
+    p1.textContent = `New text in paragraph one: text changed by Zhuoheng Yang on the following date: '${new Date().toLocaleDateString()}'`;
 /*************************************** */
 /* 2: Select all elements in the HTML that have the class name content-container
  and change the background color ... of first and second ...*/
 /***CODE */
     let allContentContainers = document.querySelectorAll('.content-container');
     let firstContainer = allContentContainers[0];
-    firstContainer.style.backgroundColor = '#b31b76';
+    firstContainer.style.backgroundColor = 'orange';
     let secondContainer = allContentContainers[1];
-    secondContainer.style.backgroundColor = '#5413d6';
+    secondContainer.style.backgroundColor = 'purple';
 /*************************************** */
 /* 3: Change the src element of the first image element on the page to be ...
 /***CODE */
     let imgElement = document.querySelectorAll('.img-image')[0];
-    imgElement.src = 'task-2-images/eight.png';
+    imgElement.src = 'task-2-images/seven.png';
 /*************************************** */
 /* 4: Select the third paragraph element on the page and 
 replace the content (within the paragraph) to be an h2 element which contains the text `TEST 123`
 /***CODE */
     let thirdParagraph = document.querySelectorAll('p')[2];
+    thirdParagraph.innerHTML = '';
     let h2Element = document.createElement('h2');
-    h2Element.textContent = 'TEST123';
+    h2Element.textContent = 'TEST 123';
     thirdParagraph.appendChild(h2Element);
 
 /*************************************** */
 /* 5: Select the fourth paragraph element on the page and 
 add to the existing content an h2 element containing the text `TEST 123`
 /***CODE */
+    let fourthParagraph = document.querySelectorAll('p')[3];
+    let newH2Element = document.createElement('h2');
+    newH2Element.textContent = 'TEST 123';
+    fourthParagraph.appendChild(newH2Element);
 
 /*************************************** */
 /* 6: Select the fifth paragraph element on the page and add to the existing content 
 an img element that holds `one.png`, and add the class newStyle to said paragraph element.
 /***CODE */
-
+    let fifthParagraph = document.querySelectorAll('p')[4];
+    let newImg = document.createElement('img');
+    newImg.src = 'task-2-images/one.png';
+    fifthParagraph.appendChild(newImg);
+    fifthParagraph.classList.add('newStyle');
 
 /*************************************** */
 /* 7: Add the following array variable: let colors = ['red','blue','green','orange'];, 
@@ -139,13 +148,17 @@ assign the element from innerContainers variable with the same index
 (i.e. colors[0] should be allocated to the first innerContainers element, colors[1] to the second, etc ...) 
 a background using that color.
 /***CODE */
+    let colors = ['red', 'blue', 'green', 'orange'];
+    let innerContainers = document.querySelectorAll('.inner-container');
+    for (let i = 0; i < colors.length; i++) {
+        innerContainers[i].style.backgroundColor = colors[i];
+    };
+/*************************************** */
+/*** END PART TWO MODIFY */
+
 
 /*************************************** */
-/*** END PART TWO MODIFY */ 
-
-
-/*************************************** */
-/*** START PART THREE CREATE */ 
+/*** START PART THREE CREATE */
 /*************************************** */
 /* 1: NEW PARAGRAPHS */
 /* 1A: Access all paragraph elements, and store the result in a variable called: allPTagsThree */
@@ -158,6 +171,20 @@ a background using that color.
 /* 1H: Iterate through the allPTagsThree array and call customCreateElement(), 
 passing the current allPTagsThree element as the parent with each iteration.*/
 /***CODE */
+    //1A:
+    let allPTagsThree = document.querySelectorAll('p');
+    //1B-iG:
+    function customCreateElement(parent) {
+        let newParagraph = document.createElement('p'); //1C
+        newParagraph.textContent = 'using create Element'; //1D
+        newParagraph.style.backgroundColor = 'green'; //1E
+        newParagraph.style.color = 'white'; //1F
+        parent.appendChild(newParagraph); //1G
+    };
+    //1H
+    for (let i = 0; i < allPTagsThree.length; i++) {
+        customCreateElement(allPTagsThree[i]);
+    };
 
 
 /***EXPLANATION::
@@ -185,8 +212,25 @@ passing the current allPTagsThree element as the parent with each iteration.*/
 /* 2H: BONUS II: For every div in an even numbered row make it contain the text `EVEN`, 
     otherwise lat it have the content `ODD`.*/
 
-/***CODE */
-
+    /***CODE */
+    //2A-2D
+    function customNewBoxCreate(parent) {
+        let newDiv = document.createElement('div');
+        newDiv.className = 'testDiv';
+        parent.appendChild(newDiv);
+        return newDiv;
+    };
+    //2E-2F
+    let newGrid = document.getElementById('new-grid');
+    for (let row = 0; row < 10; row++) {
+        for (let column = 0; column < 10; column++) {
+            let returnedDiv = customNewBoxCreate(newGrid);
+            returnedDiv.style.left = column * 46 + 'px';
+            returnedDiv.style.top = row * 46 + 'px';
+        };
+    };
+    //2G:
+    
 
 /***EXPLANATION::
  * 
@@ -208,6 +252,27 @@ passing the current allPTagsThree element as the parent with each iteration.*/
     when dividing by three. */
 
 /***CODE */
+    //3A
+    let newGridThree = document.getElementById('new-grid-three');
+    for (let row = 0; row < 10; row++) {
+        for (let column = 0; column < 10; column++) {
+            let returnedDiv = customNewBoxCreate(newGridThree);
+            returnedDiv.style.left = column * 46 + 'px';
+            returnedDiv.style.top = row * 46 + 'px';
+            //3B-3C
+            let remainder = column % 3;
+            if (remainder === 0) {
+                returnedDiv.style.backgroundColor = 'red';
+            } else if (remainder === 1) {
+                returnedDiv.style.backgroundColor = 'orange';
+            } else if (remainder === 2) {
+                returnedDiv.style.backgroundColor = 'yellow';
+            }
+
+            //3D
+            returnedDiv.textContent = remainder;
+        };
+    };
 
 
 /***EXPLANATION::
