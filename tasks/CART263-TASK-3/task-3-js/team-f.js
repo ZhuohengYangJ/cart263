@@ -87,6 +87,9 @@ function setup_F() {
     let sunY = 340;
     let sun = document.createElement('div');
     sun.classList.add('TEAM_F_sun');
+    let rays = document.createElement('div');
+    rays.classList.add('TEAM_F_rays');
+    sun.appendChild(rays);
     parentCanvas.appendChild(sun);
     function updateSunPosition() {
       sun.style.top = sunY + "px";
