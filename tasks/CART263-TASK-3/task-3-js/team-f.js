@@ -4,7 +4,7 @@ function setup_F() {
   console.log("in f");
   /**************************************************** */
   //get the buttons
-  activateButtons(`#TEAM_F`, "ani_canvF",aniA,aniB,aniC,aniD);
+  activateButtons(`#TEAM_F`, "ani_canvF", aniA, aniB, aniC, aniD);
 
   /**************** ANI A ************************************ */
   /** PUT ALL YOUR CODE FOR INTERACTIVE PATTERN A INSIDE HERE */
@@ -21,11 +21,11 @@ function setup_F() {
    * remember you can define other functions inside....
    * Do not change any code above or the HTML markup.
    * **/
-   
+
   function aniA(parentCanvas) {
     console.log("in ani-A -teamF");
     const imgUrls = [];
-    for (let i = 0; i < 10; i++){
+    for (let i = 0; i < 10; i++) {
       imgUrls.push(`assets/${i}.jpg`)
     }
     let newElement = document.createElement('img');
@@ -35,7 +35,7 @@ function setup_F() {
     parentCanvas.addEventListener('click', changeImgHandler);
 
     function changeImgHandler() {
-      newElement.src = imgUrls[Math.floor(Math.random()*10)];
+      newElement.src = imgUrls[Math.floor(Math.random() * 10)];
     }
   }
 
@@ -57,8 +57,8 @@ function setup_F() {
    * **/
 
   function aniB(parentCanvas) {
-      console.log("in ani-B -teamF");
-    
+    console.log("in ani-B -teamF");
+
   }
   /****************ANI C ************************************ */
   /** PUT ALL YOUR CODE FOR INTERACTIVE PATTERN C INSIDE HERE */
@@ -138,8 +138,8 @@ function setup_F() {
    * remember you can define other functions inside....
    * Do not change any code above or the HTML markup.
    * **/
-    function aniD(parentCanvas) {
-      console.log("in ani-D -teamF");
-    }
+  function aniD(parentCanvas) {
+    console.log("in ani-D -teamF");
+  }
 
 }
