@@ -147,6 +147,7 @@ function setup_F() {
         };
       } else if (e.code === 'Backspace') {
         e.preventDefault();
+        sun.classList.add("active");
         if (sunY <= 280) {
           sunY = sunY + 20;
           updateSunPosition();
