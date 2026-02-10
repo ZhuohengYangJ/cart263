@@ -59,6 +59,42 @@ function setup_F() {
   function aniB(parentCanvas) {
     console.log("in ani-B -teamF");
 
+    // keep it inside the canvas
+    parentCanvas.style.position = "relative";
+    parentCanvas.style.overflow = "hidden";
+
+    parentCanvas.addEventListener("mousemove", paintRainbow);
+
+    function paintRainbow(e) {
+      let canvas = this.getBoundingClientRect();
+      let x = e.clientX - canvas.left;
+      let y = e.clientY - canvas.top;
+
+      // create dot
+      let dot = document.createElement("div");
+      dot.classList.add("TEAM_F_paintDot");
+      dot.textContent = "🙂";
+
+      // dot position
+      dot.style.left = x + "px";
+      dot.style.top = y + "px";
+
+      // randomize colors
+      let r = Math.floor(Math.random() * 256);
+      let g = Math.floor(Math.random() * 256);
+      let b = Math.floor(Math.random() * 256);
+      dot.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+      this.appendChild(dot);
+
+      setTimeout(() => {
+        dot.style.opacity = "0";
+      }, 10);
+
+      setTimeout(() => {
+        dot.remove();
+      }, 1000);
+    }
   }
   /****************ANI C ************************************ */
   /** PUT ALL YOUR CODE FOR INTERACTIVE PATTERN C INSIDE HERE */
@@ -144,5 +180,6 @@ function setup_F() {
   function aniD(parentCanvas) {
     console.log("in ani-D -teamF");
   }
+  
 
 }

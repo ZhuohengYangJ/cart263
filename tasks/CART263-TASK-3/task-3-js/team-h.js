@@ -234,73 +234,64 @@ function setup_H() {
    * **/
 
   function aniD(parentCanvas) {
-    console.log("in aniD -teamH");
+    console.log("in ani-D -teamF");
 
-    let sampleColors = [
-      "red",
-      "purple",
-      "orange",
-      "magenta",
-      "black",
-      "green",
-      "yellow",
-      "pink",
-      "lime",
-      "maroon",
-      "teal",
-      "navy",
-      "olive",
-      "grey",
-      "fuchsia",
-    ];
+    // make sure canvas area is clean
+    parentCanvas.innerHTML = "";
 
-    //get the rendered bounding Box of parent and use the width and height
-    let boundingBoxParent = parentCanvas.getBoundingClientRect();
-    let arrayOfellipses = [];
+    // create canvas
+    let canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 400;
+    parentCanvas.appendChild(canvas);
 
-    //make a grid of cells
-    for (let i = 20; i < boundingBoxParent.width; i += 20) {
-      for (let j = 20; j < boundingBoxParent.height; j += 20) {
-        //create a div and place in the grid
-        let ellipse = document.createElement("div");
-        ellipse.classList.add("TEAM_H_h_cell_D");
-        parentCanvas.appendChild(ellipse);
-        ellipse.style.left = `${j}px`;
-        ellipse.style.top = `${i}px`;
-        ellipse.style.width = "10px";
-        ellipse.style.height = "10px";
-        ellipse.style.opacity = 1;
-        ellipse.style.background =
-          sampleColors[parseInt(Math.random() * sampleColors.length)];
-        ellipse.setAttribute("ani-dir", "1");
-        ellipse.setAttribute("ani-go", "false");
-        arrayOfellipses.push(ellipse);
-        setTimeout(function(){ellipse.setAttribute("ani-go","true")},Math.random()*5000)
+    let ctx = canvas.getContext("2d");
+    let t = 0; // time for animation
+
+    // animation loop
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // face color
+      ctx.fillStyle = "#FFD966";
+      ctx.beginPath();
+
+      // draw face not perfect so look hand made
+      let cx = 200;
+      let cy = 200;
+      let r = 150;
+      for (let a = 0; a < Math.PI * 2; a += 0.1) {
+        let x = cx + (r + (Math.random() - 0.5) * 4) * Math.cos(a);
+        let y = cy + (r + (Math.random() - 0.5) * 4) * Math.sin(a);
+        if (a === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
       }
+      ctx.closePath();
+      ctx.fill();
+
+      // eyes move little bit
+      let eyeMove = Math.sin(t * 3) * 2;
+      ctx.fillStyle = "#000";
+      ctx.beginPath();
+      ctx.arc(140 + (Math.random() - 0.5) * 2, 150 + eyeMove, 20, 0, Math.PI * 2);
+      ctx.arc(260 + (Math.random() - 0.5) * 2, 150 + eyeMove, 20, 0, Math.PI * 2);
+      ctx.fill();
+
+      // mouth change sad to happy
+      let mouthCurve = Math.sin(t) * 50;
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 4 + Math.random();
+      ctx.beginPath();
+      ctx.moveTo(120, 270);
+      ctx.quadraticCurveTo(200, 270 + mouthCurve, 280, 270);
+      ctx.stroke();
+
+      // update time and loop
+      t += 0.02;
+      requestAnimationFrame(draw);
     }
 
-  requestAnimationFrame(animate)
-
-
-    /****** callback for requestAnimationFrame **********/
-    function animate() {
-      for (let i = 0; i < arrayOfellipses.length; i++) {
-        if (arrayOfellipses[i].getAttribute("ani-go") === "true") {
-          let dir_of_ani = parseInt(arrayOfellipses[i].getAttribute("ani-dir"));
-          let currentSize = parseInt(arrayOfellipses[i].style.width);
-          //console.log(currentSize)
-          if (currentSize > 25 || currentSize < 2) {
-            dir_of_ani *= -1;
-            arrayOfellipses[i].setAttribute("ani-dir", dir_of_ani);
-          }
-          arrayOfellipses[i].style.width = currentSize + 1 * dir_of_ani + "px";
-          arrayOfellipses[i].style.height = currentSize + 1 * dir_of_ani + "px";
-          arrayOfellipses[i].style.borderRadius =
-            currentSize + 1 * dir_of_ani + "px";
-        }
-      }
-      //recall animation loop
-      requestAnimationFrame(animate);
-    }
+    // start animation
+    draw();
   }
 }
