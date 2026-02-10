@@ -222,3 +222,11 @@ body{
     0 0 30px 15px rgba(255, 210, 80, 0.35),
     0 0 60px 30px rgba(255, 200, 50, 0.25);
 }
+
+.TEAM_F_sun.active {
+  box-shadow:
+    0 0 60px 25px rgba(255, 220, 120, 0.8),
+    0 0 120px 50px rgba(255, 200, 80, 0.4);
+
+  transform: translateX(-50%) scale(1.05);
+}
