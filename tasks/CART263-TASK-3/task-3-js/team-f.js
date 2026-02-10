@@ -179,7 +179,64 @@ function setup_F() {
    * **/
   function aniD(parentCanvas) {
     console.log("in ani-D -teamF");
+
+    // make sure canvas area is clean
+    parentCanvas.innerHTML = "";
+
+    // create canvas
+    let canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 400;
+    parentCanvas.appendChild(canvas);
+
+    let ctx = canvas.getContext("2d");
+    let t = 0; // time for animation
+
+    // animation loop
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // face color
+      ctx.fillStyle = "#FFD966";
+      ctx.beginPath();
+
+      // draw face not perfect so look hand made
+      let cx = 200;
+      let cy = 200;
+      let r = 150;
+      for (let a = 0; a < Math.PI * 2; a += 0.1) {
+        let x = cx + (r + (Math.random() - 0.5) * 4) * Math.cos(a);
+        let y = cy + (r + (Math.random() - 0.5) * 4) * Math.sin(a);
+        if (a === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      // eyes move little bit
+      let eyeMove = Math.sin(t * 3) * 2;
+      ctx.fillStyle = "#000";
+      ctx.beginPath();
+      ctx.arc(140 + (Math.random() - 0.5) * 2, 150 + eyeMove, 20, 0, Math.PI * 2);
+      ctx.arc(260 + (Math.random() - 0.5) * 2, 150 + eyeMove, 20, 0, Math.PI * 2);
+      ctx.fill();
+
+      // mouth change sad to happy
+      let mouthCurve = Math.sin(t) * 50;
+      ctx.strokeStyle = "#000";
+      ctx.lineWidth = 4 + Math.random();
+      ctx.beginPath();
+      ctx.moveTo(120, 270);
+      ctx.quadraticCurveTo(200, 270 + mouthCurve, 280, 270);
+      ctx.stroke();
+
+      // update time and loop
+      t += 0.02;
+      requestAnimationFrame(draw);
+    }
+
+    // start animation
+    draw();
   }
-  
 
 }
